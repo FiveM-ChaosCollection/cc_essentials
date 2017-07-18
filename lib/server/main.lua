@@ -1,23 +1,41 @@
-print("We got somewhere with the server")
-
-if ChaosCollection then
-  if ChaosCollection.Features then
-    print("we have features")
-    if ChaosCollection.Features.Essentials then
-      print("we have essentials")
-    else
-      print("we DONT have essentials")
-      ChaosCollection.Features.Essentials = true
-      if ChaosCollection.Features.Essentials then
-        print("we have essentials")
-      else
-        print("we DONT have essentials")
-        ChaosCollection.Features.Essentials = true
-      end
-    end
+-- register feature
+if exports.ChaosCollection && exports.ChaosCollection.AvailableFeatures then
+  if exports.ChaosCollection.AvailableFeatures.Essentials == nil then
+    exports.ChaosCollection.AvailableFeatures.Essentials = true
+    print("[CC-Essentials-LOG] Registered feature `Essentials' with ChaosCollection.AvailableFeatures")
   else
-    print("we DONT have features")
+    print("[CC-Essentials-ERROR] Failed to register feature `Essentials' with ChaosCollection.AvailableFeatures: Already registered!")
   end
 else
-  print("we DONT have a collection")
+  print("[CC-Essentials-ERROR] Failed to register feature `Essentials' with ChaosCollection.AvailableFeatures: No such variable!")
 end
+
+-- activate/deactivate feature
+
+AddEventHandler('onResourceStart', function(resouce)
+  if exports.ChaosCollection && exports.ChaosCollection.LoadedFeatures then
+    if exports.ChaosCollection.LoadedFeatures.Essentials then
+      print("[CC-Essentials-ERROR] Failed to load feature `Essentials' with ChaosCollection.LoadedFeatures: Already loaded!")
+      CancelEvent()
+    else
+      exports.ChaosCollection.LoadedFeatures.Essentials = true
+      print("[CC-Essentials-LOG] Loaded feature `Essentials' on ChaosCollection.LoadedFeatures")
+    end
+  else
+    print("[CC-Essentials-ERROR] Failed to load feature `Essentials' with ChaosCollection.LoadedFeatures: No such variable!")
+  end
+end)
+
+AddEventHandler('onResourceStop', function(resouce)
+  if exports.ChaosCollection && exports.ChaosCollection.LoadedFeatures then
+    if not exports.ChaosCollection.LoadedFeatures.Essentials then
+      print("[CC-Essentials-ERROR] Failed to unload feature `Essentials' with ChaosCollection.LoadedFeatures: Not loaded!")
+      CancelEvent()
+    else
+      exports.ChaosCollection.LoadedFeatures.Essentials = false
+      print("[CC-Essentials-LOG] Unloaded feature `Essentials' on ChaosCollection.LoadedFeatures")
+    end
+  else
+    print("[CC-Essentials-ERROR] Failed to unload feature `Essentials' with ChaosCollection.LoadedFeatures: No such variable!")
+  end
+end)
