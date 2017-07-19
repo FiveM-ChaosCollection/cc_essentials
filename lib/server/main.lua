@@ -4,7 +4,7 @@ createPprint().pprint(exports.ChaosCollection)
 
 
 -- register feature
-if exports.ChaosCollection && exports.ChaosCollection.AvailableFeatures then
+if exports.ChaosCollection and exports.ChaosCollection.AvailableFeatures then
   if exports.ChaosCollection.AvailableFeatures.Essentials == nil then
     exports.ChaosCollection.AvailableFeatures.Essentials = true
     print("[CC-Essentials-LOG] Registered feature `Essentials' with ChaosCollection.AvailableFeatures")
