@@ -11,7 +11,7 @@ dependency 'chacol_core'
 -- Server scripts
 server_scripts {
   '@mysql-async/lib/MySQL.lua', -- MySQL library
-  '@chacol_core/lib/utils.lua',
+  '@chacol_core/lib/string_utils.lua',
   'lib/server/main.lua'
 }
 
